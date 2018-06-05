@@ -5,6 +5,11 @@ import App from './App'
 // 引入第三方的css
 import 'normalize.css'
 import './assets/reset.scss'
+// 引入elementcss UI
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
