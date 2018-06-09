@@ -13,30 +13,40 @@
   </nav>
     <ol class="panes">
       <li v-bind:class="{active:currentTab === 0}">
-        <selfInformation v-bind:profile="profile"></selfInformation>
+        <selfInformation v-bind:profile="profile" />
       </li>
       <li v-bind:class="{active:currentTab === 1}">
-        <workExperience v-bind:workExperience="workExperience"></workExperience>
+        <itemsEditor v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'时间',degree:'学位'}"
+                     title="学习经历" />
       </li>
       <li v-bind:class="{active:currentTab === 2}">
-        <h2>学习经历</h2>
+        <itemsEditor v-bind:items="workExperience" v-bind:labels="{company:'公司',content:'工作内容'}"
+                     title="工作经历" />
       </li>
       <li v-bind:class="{active:currentTab === 3}">
-        <h2>项目经历</h2>
+        <itemsEditor v-bind:items="projects" v-bind:labels="{name:'项目号名称',content:'项目简介'}"
+                     title="项目经历" />
       </li>
       <li v-bind:class="{active:currentTab === 4}">
-        <h2>获奖情况</h2>
+        <itemsEditor v-bind:items="workExperience" v-bind:labels="{name:'获奖名称'}"
+                     title="获奖情况" />
       </li>
-      <li v-bind:class="{active:currentTab === 4}">
-        <h2>联系方式</h2>
+      <li v-bind:class="{active:currentTab === 5}">
+        <contactEditor v-bind:contact="contact"/>
       </li>
+
     </ol>
   </div>
 </template>
 
 <script>
   import selfInformation from './selfInformation'
-  import workExperience from './workExperience'
+  // import workExperience from './workExperience'
+  // import studyExperience from './studyExperience'
+  // 普适方式 整合为一个组件
+  import itemsEditor from './editorComponents'
+  import contactEditor from './contactEditor'
+
 
   export default {
 	  data(){
@@ -49,11 +59,20 @@
           birth:''
         },
         workExperience:[
-          {
-            company:'',
-            content:''
-          }
-        ]
+          { company:'', content:'' },
+        ],
+        studyExp:[
+          { school:'', duration:'',degree:''},
+        ],
+        projects:[
+          {name:'',content:''}
+        ],
+        awards:[
+          {name:''}
+        ],
+        contact:{
+	        qq:'', email:'',wechat:'',phone:''
+        }
       }
     },
     created(){
@@ -69,7 +88,10 @@
     // }
     components:{
 	    selfInformation,
-      workExperience,
+      // workExperience,
+      // studyExperience,
+      itemsEditor,
+      contactEditor
     }
 	}
 </script>
@@ -104,10 +126,10 @@
   #editor ol.panes {
     flex: 1;
   }
-  #editor ol.panes .experience {
+  #editor ol.panes .container {
     position: relative;
   }
-  #editor ol.panes .experience i{
+  #editor ol.panes .container i{
     position: absolute;
     top: 0;
     right: 0;
