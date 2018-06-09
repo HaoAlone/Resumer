@@ -4,8 +4,7 @@
     <ol>
       <li v-for="i in [0,1,2,3,4,5]"
           v-bind:class="{active:currentTab === i}"
-          v-on:click="currentTab === i"
-        >
+          v-on:click="currentTab = i">
         <svg class="icon">
           <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
         </svg>
@@ -13,23 +12,64 @@
     </ol>
   </nav>
     <ol class="panes">
-      <li v-bind:class="{active:currentTab === 0}">tab 1</li>
-      <li v-bind:class="{active:currentTab === 1}">tab 2</li>
-      <li v-bind:class="{active:currentTab === 2}">tab 3</li>
-      <li v-bind:class="{active:currentTab === 3}">tab 4</li>
-      <li v-bind:class="{active:currentTab === 4}">tab 5</li>
-      <li v-bind:class="{active:currentTab === 5}">tab 6</li>
+      <li v-bind:class="{active:currentTab === 0}">
+        <selfInformation v-bind:profile="profile"></selfInformation>
+      </li>
+      <li v-bind:class="{active:currentTab === 1}">
+        <workExperience v-bind:workExperience="workExperience"></workExperience>
+      </li>
+      <li v-bind:class="{active:currentTab === 2}">
+        <h2>学习经历</h2>
+      </li>
+      <li v-bind:class="{active:currentTab === 3}">
+        <h2>项目经历</h2>
+      </li>
+      <li v-bind:class="{active:currentTab === 4}">
+        <h2>获奖情况</h2>
+      </li>
+      <li v-bind:class="{active:currentTab === 4}">
+        <h2>联系方式</h2>
+      </li>
     </ol>
   </div>
 </template>
 
 <script>
-	export default {
+  import selfInformation from './selfInformation'
+  import workExperience from './workExperience'
+
+  export default {
 	  data(){
 	    return {
 	      currentTab:0,
-        icons:['shenfenzheng','work0','book','project','trophy','phone']
+        icons:['shenfenzheng','work0','book','project','trophy','phone'],
+        profile:{
+	        name:'',
+          city:'',
+          birth:''
+        },
+        workExperience:[
+          {
+            company:'',
+            content:''
+          }
+        ]
       }
+    },
+    created(){
+
+    },
+    methods:{
+
+    },
+    // methods:{
+	   //  onSubmit(){
+	   //    console.log(this.profile)
+    //   }
+    // }
+    components:{
+	    selfInformation,
+      workExperience,
     }
 	}
 </script>
@@ -39,6 +79,7 @@
     /*border:1px solid black;*/
     min-height: 100px;
     display: flex;
+    flex-direction: row;
   }
   #editor nav {
     background: #000;
@@ -60,10 +101,29 @@
     height: 24px;
     fill: #fff;
   }
+  #editor ol.panes {
+    flex: 1;
+  }
+  #editor ol.panes .experience {
+    position: relative;
+  }
+  #editor ol.panes .experience i{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+  }
   #editor ol.panes li{
+    height: 100%;
     display: none;
+    padding: 32px;
+    /*border: 1px solid red;*/
+    overflow: auto;
   }
   #editor ol.panes li.active {
     display: block;
+  }
+  #editor ol.panes > li >input {
+    width: 100%;
   }
 </style>
