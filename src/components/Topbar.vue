@@ -2,6 +2,10 @@
   <div id="topbar">
     <div class="wrapper">
       <span class="logo">Resumer</span>
+      <div class="actions">
+        <el-button class="primary">保存</el-button>
+        <el-button>预览</el-button>
+      </div>
     </div>
   </div>
 
@@ -23,14 +27,22 @@
     max-width: 1440px;
     margin: 0 auto;
     height: 64px;
-  }
-  #topbar > .wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 16px;
   }
   #topbar  .logo {
     font-size: 24px;
     color: #000;
   }
+  /*button {*/
+    /*width: 72px;*/
+    /*height: 32px;*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*font-size: 16px;*/
+    /*background: #ddd;*/
+    /*color: #222;*/
+  /*}*/
 </style>
