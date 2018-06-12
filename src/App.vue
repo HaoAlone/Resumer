@@ -1,84 +1,62 @@
 <template>
-  <div id="app">
-    <Topbar class="topbar"/>
+  <div class="page">
+    <header>
+      <Topbar />
+    </header>
     <main>
-      <Editor class="editor"/>
-      <Preview class="preview"/>
+      <ResumeEditor />
+      <ResumePreview />
     </main>
 
   </div>
-
 </template>
-
 <script>
-  import Topbar from './components/Topbar'
-  import Editor from './components/Editor'
-  import Preview from './components/Preview'
+  import 'normalize.css/normalize.css'
+  import './assets/reset.css'
+
+  import Topbar from "./components/Topbar"
+  import ResumeEditor from "./components/ResumeEditor"
+  import ResumePreview from "./components/ResumePreview"
 
   export default {
-    components: {
-      'Topbar': Topbar,
-      Editor,
-      Preview
-    }
-  }
-// import HelloWorld from './components/HelloWorld'
-//
-// export default {
-//   name: 'App',
-//   components: {
-//     HelloWorld
-//   }
-// }
-</script>
+    name:'App',
+    data:function(){
+      return {
+        text:'你好'
+      }
 
+    },
+    components:{Topbar,ResumeEditor,ResumePreview}
+  }
+</script>
 <style>
-  html,body,#app {
-    height:100%;
-    overflow: hidden;
-  }
-  .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /*height: 100vh;*/
-    height: 100%;
+  .page {
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    background: #EAEBEC;
   }
-  .topbar {
-    position: relative;
-    zoom: 1;
-    /*background: red;*/
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
-  }
-  main {
-    /*background: green;*/
+  .page > main {
+    min-width: 1024px;
+    max-width: 1440px;
+    margin: 0;
     display: flex;
-    flex: 1;
-    background: #DDD;
+    justify-content: space-between;
+    padding: 0 16px;
+    /*占满父容器*/
+    flex-grow: 1;
+    /*保证居中*/
+    width: 100%;
+    align-self: center;
+    /*border: 1px solid red;*/
   }
-  main > .editor {
-    width: 40em;
-    margin: 16px 8px 16px 16px;
-    background: white;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
-    border-radius: 5px;
-    overflow: auto;
+  #resumeEditor {
+    width: 35%;
+    background: #444;
   }
-  main > .preview {
-    flex: 1 ;
-    margin: 16px 16px 16px 8px;
-    background: white;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
-    border-radius: 5px;
-    overflow: hidden;
+  #resumePreview {
+    flex-grow: 1;
+    margin-left: 16px;
+    background: #777;
   }
 </style>

@@ -13,26 +13,26 @@
   </nav>
     <ol class="panes">
       <li v-bind:class="{active:currentTab === 0}">
-        <selfInformation v-bind:profile="profile" />
+        <selfInformation v-bind:profile="resume.profile" />
       </li>
       <li v-bind:class="{active:currentTab === 1}">
-        <itemsEditor v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'时间',degree:'学位'}"
+        <itemsEditor v-bind:items="resume.studyExp" v-bind:labels="{school:'学校',duration:'时间',degree:'学位'}"
                      title="学习经历" />
       </li>
       <li v-bind:class="{active:currentTab === 2}">
-        <itemsEditor v-bind:items="workExperience" v-bind:labels="{company:'公司',content:'工作内容'}"
+        <itemsEditor v-bind:items="resume.workExperience" v-bind:labels="{company:'公司',content:'工作内容'}"
                      title="工作经历" />
       </li>
       <li v-bind:class="{active:currentTab === 3}">
-        <itemsEditor v-bind:items="projects" v-bind:labels="{name:'项目号名称',content:'项目简介'}"
+        <itemsEditor v-bind:items="resume.projects" v-bind:labels="{name:'项目号名称',content:'项目简介'}"
                      title="项目经历" />
       </li>
       <li v-bind:class="{active:currentTab === 4}">
-        <itemsEditor v-bind:items="workExperience" v-bind:labels="{name:'获奖名称'}"
+        <itemsEditor v-bind:items="resume.workExperience" v-bind:labels="{name:'获奖名称'}"
                      title="获奖情况" />
       </li>
       <li v-bind:class="{active:currentTab === 5}">
-        <contactEditor v-bind:contact="contact"/>
+        <contactEditor v-bind:contact="resume.contact"/>
       </li>
 
     </ol>
@@ -49,30 +49,12 @@
 
 
   export default {
+    props:['resume'],
 	  data(){
 	    return {
 	      currentTab:0,
         icons:['shenfenzheng','work0','book','project','trophy','phone'],
-        profile:{
-	        name:'',
-          city:'',
-          birth:''
-        },
-        workExperience:[
-          { company:'', content:'' },
-        ],
-        studyExp:[
-          { school:'', duration:'',degree:''},
-        ],
-        projects:[
-          {name:'',content:''}
-        ],
-        awards:[
-          {name:''}
-        ],
-        contact:{
-	        qq:'', email:'',wechat:'',phone:''
-        }
+
       }
     },
     created(){

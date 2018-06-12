@@ -1,13 +1,10 @@
 <template>
   <div id="topbar">
-    <div class="logo">
-      VueResumer
-    </div>
-    <div class="actions">
-      <el-button type="primary">注册</el-button>
-      <el-button>登录</el-button>
+    <div class="wrapper">
+      <span class="logo">Resumer</span>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -16,12 +13,24 @@
 	}
 </script>
 
-<style scoped>
+<style>
   #topbar {
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+  }
+  #topbar > .wrapper {
+    min-width: 1024px;
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 64px;
+  }
+  #topbar > .wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    font-size: 20px;
+  }
+  #topbar  .logo {
+    font-size: 24px;
+    color: #000;
   }
 </style>
