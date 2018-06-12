@@ -6,7 +6,7 @@
 
 <script>
 	export default {
-		name: "topbar"
+		name: "ResumePreview"
 	}
 </script>
 
