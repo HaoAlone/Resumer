@@ -5,12 +5,12 @@
         <div class="actions">
           <div v-if="logined" class="userActions">
             <span>你好,{{user.username}}</span>
-            <a class="button" href="#">登出</a>
+            <a class="button" href="#" v-on:click.prevent="signOut">登出</a>
           </div>
           <div v-else class="userActions">
             <a class="button primary" href="#" v-on:click.prevent="signUpDialogVisible = true">注册</a>
             <MyDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
-              <SignUpform @success="login($event)" />
+              <SignUpform @success="signIn($event)" />
             </MyDialog>
             <a class="button" href="#">登录</a>
           </div>
@@ -24,6 +24,7 @@
 <script>
   import MyDialog from './MyDialog'
   import SignUpform from './SignUpForm'
+  import AV from '../lib/leancloud'
 
 	export default {
 		name: "topbar",
@@ -34,7 +35,8 @@
     },
     components:{
       MyDialog,
-      SignUpform
+      SignUpform,
+      AV
     },
     computed:{
 		  user(){
@@ -45,7 +47,11 @@
       }
     },
     methods:{
-		  login(user){
+		  signOut(){
+		    AV.User.logOut()
+        this.$store.commit('removeUser')
+      },
+		  signIn(user){
 		    this.signUpDialogVisible = false
         this.$store.commit('setUser',user)
       }
