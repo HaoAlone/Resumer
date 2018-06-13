@@ -12,7 +12,10 @@
             <MyDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
               <SignUpform @success="signIn($event)" />
             </MyDialog>
-            <a class="button" href="#">登录</a>
+            <a class="button" href="#" v-on:click.prevent="signInDialogVisible = true">登录</a>
+            <MyDialog title="登录" :visible="signInDialogVisible" @close="signInDialogVisible = false">
+              <SignUpform @success="signIn($event)" />
+            </MyDialog>
           </div>
           <button class="button primary" >保存</button>
           <button class="button" >预览</button>
@@ -24,18 +27,21 @@
 <script>
   import MyDialog from './MyDialog'
   import SignUpform from './SignUpForm'
+  import SignInform from './SignInForm'
   import AV from '../lib/leancloud'
 
 	export default {
 		name: "topbar",
     data(){
 		  return{
-        signUpDialogVisible:false
+        signUpDialogVisible:false,
+        signInDialogVisible:false
       }
     },
     components:{
       MyDialog,
       SignUpform,
+      SignInform,
       AV
     },
     computed:{
@@ -52,7 +58,8 @@
         this.$store.commit('removeUser')
       },
 		  signIn(user){
-		    this.signUpDialogVisible = false
+        this.signUpDialogVisible = false
+        this.signInDialogVisible = false
         this.$store.commit('setUser',user)
       }
     }
