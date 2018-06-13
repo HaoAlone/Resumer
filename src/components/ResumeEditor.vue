@@ -14,17 +14,17 @@
     <ol class="panels">
       <li v-for="item in resume.config" v-show="item.field === selected">
         <div v-if="resume[item.field] instanceof Array">
-          <div class="subitem" v-for="subitem in resume[item.field]">
+          <div class="subitem" v-for="(subitem,i) in resume[item.field]">
             <div class="resumeFiled" v-for="(value,key) in subitem">
               <label for="">{{key}}</label>
-              <input type="text" v-bind:value="value">
+              <input type="text" v-bind:value="value" @input="changeResumeField(`${item.field}.${i}.${key}`,$event.target.value)">
             </div>
             <hr>
           </div>
         </div>
         <div v-else class="resumeFiled" v-for="(value,key) in resume[item.field]">
           <label for="">{{key}}</label>
-          <input type="text" v-model="resume[item.field][key]">
+          <input type="text" v-bind:value="value" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">
         </div>
       </li>
     </ol>
@@ -34,47 +34,27 @@
 <script>
 	export default {
 		name: "ResumeEditor",
-    data(){
-		  return {
-        selected:'profile',
-        resume:{
-          config:[
-            { field:'profile',icon:'id'},
-            { field:'work',icon:'work'},
-            { field:'education',icon:'book'},
-            { field:'projects',icon:'heart'},
-            { field:'awards',icon:'cup'},
-            { field:'contacts',icon:'phone'},
-
-          ],
-          profile:{
-            name:'',
-            city:'',
-            birth:''
-          },
-          work:[
-            {company:'al',content:'第一份工作'},
-            {company:'bl',content:'第2份工作'},
-          ],
-          education:[
-            {school:'al',content:'文字'},
-            {school:'tx',content:'第一份工作'},
-          ],
-          projects:[
-            {name:'prject a',content:'文字'},
-            {name:'project b',content:'文字'},
-          ],
-          awards:[
-            {name:'awards a',content:'文字'},
-            {name:'awards b',content:'文字'},
-          ],
-          contacts:[
-            {contact:'phone',content:'123123123'},
-            {contact:'qq',content:'123123312'},
-          ]
+    computed:{
+		  selected:{
+		    get(){
+          return this.$store.state.selected
+        },
+        set(value){
+		      return this.$store.commit('switchTab',value)
         }
+      },
+      resume(){
+		    return this.$store.state.resume
+      }
+    },
+    methods:{
+		  changeResumeField(path, value) {
+		    this.$store.commit('updateResume',{
+		      path,value
+        })
       }
     }
+
 	}
 </script>
 
@@ -82,19 +62,20 @@
   #resumeEditor {
     background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     display: flex;
     flex-direction: row;
-    /*overflow: auto;*/
+    overflow: auto;
   }
   #resumeEditor nav {
     width: 80px;
     background: black;
     color: #ffffff;
     /*border: 1px solid black;*/
+    height: 100%;
   }
   svg.icon {
-    width: 24px;
+    min-width: 24px;
     height: 24px;
   }
   #resumeEditor nav > ol > li {
@@ -111,6 +92,8 @@
   }
   #resumeEditor > .panels {
     flex-grow: 1;
+    height: 100%;
+    overflow: auto;
   }
   #resumeEditor > .panels > li {
     padding: 24px;
@@ -120,6 +103,14 @@
   */
   .resumeFiled > label {
     display: block;
+  }
+  .resumeFiled > input {
+    margin: 16px 0;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.25);
+    width: 100%;
+    height: 40px;
+    padding: 0 8px;
   }
   hr {
     border: none;
