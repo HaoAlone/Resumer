@@ -55,7 +55,7 @@
       </ol>
     </section>
     <hr>
-    {{resume}}
+    <!--{{resume}}-->
   </div>
 </template>
 
